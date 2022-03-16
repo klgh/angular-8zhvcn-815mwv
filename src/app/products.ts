@@ -1,27 +1,5 @@
-import { Auth, Configuration, Me, Tokens } from 'ordercloud-javascript-sdk';
+import { Me } from 'ordercloud-javascript-sdk';
 
-(() => {
-  Configuration.Set({
-    baseApiUrl: 'https://sandboxapi.ordercloud.io',
-    timeoutInMilliseconds: 20 * 1000,
-  });
-  Auth.ClientCredentials(
-    'BcO7AqmD7dr40r1imJgEge7PsecEmxJzzlBQ7g5Htp0Z57v2JVOOsmuBtbez',
-    '6F6FA276-2D20-4874-9A18-69D601339817',
-    ['FullAccess', 'Shopper']
-  )
-    .then((authResponse) => {
-      Tokens.SetAccessToken(authResponse.access_token);
-
-      console.log('token', authResponse.access_token);
-
-      Me.ListProducts().then((productList) => console.log(productList));
-    })
-
-    .catch((err) => {
-      console.log(err);
-    });
-})();
 
 // const createToken = () => {
 //   return Auth.ClientCredentials(

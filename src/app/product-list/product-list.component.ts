@@ -1,14 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BuyerProduct } from 'ordercloud-javascript-sdk';
-
-import { Auth, Products, Tokens } from 'ordercloud-javascript-sdk';
-import {
-  Configuration,
-  ImpersonateTokenRequest,
-} from 'ordercloud-javascript-sdk';
-import { Me, Orders, LineItems } from 'ordercloud-javascript-sdk';
-
-import { orderCloudProducts } from '../products';
+import { Auth, Configuration, Me, Tokens } from 'ordercloud-javascript-sdk';
 
 @Component({
   selector: 'app-product-list',
@@ -32,12 +23,13 @@ export class ProductListComponent implements OnInit {
       timeoutInMilliseconds: 20 * 1000,
     });
     Auth.ClientCredentials(
-      'LuuTwjTgfyeZKsQOCg79xndpnAOZCs3MDJwxcwPFkBe7x0cICRaouaCWerZG',
-      '8135B016-CB8B-43C4-ABF4-A357150B1164',
+      'BcO7AqmD7dr40r1imJgEge7PsecEmxJzzlBQ7g5Htp0Z57v2JVOOsmuBtbez',
+      '6F6FA276-2D20-4874-9A18-69D601339817',
       ['FullAccess', 'Shopper']
     )
       .then((authResponse) => {
         Tokens.SetAccessToken(authResponse.access_token);
+
         Me.ListProducts().then(
           (productList) => (this.products = productList.Items)
         );

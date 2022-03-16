@@ -56,3 +56,4 @@ se-fe-auth-support-*.tgz
 
 # compiled
 /angular.json
+.angular/

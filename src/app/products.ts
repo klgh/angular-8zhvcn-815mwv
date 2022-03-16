@@ -5,30 +5,6 @@ import {
 } from 'ordercloud-javascript-sdk';
 import { Me, Orders, LineItems } from 'ordercloud-javascript-sdk';
 
-// var createToken = function () {
-//   console.log('createToken');
-//   return Auth.ClientCredentials(
-//     'BcO7AqmD7dr40r1imJgEge7PsecEmxJzzlBQ7g5Htp0Z57v2JVOOsmuBtbez',
-//     '6F6FA276-2D20-4874-9A18-69D601339817',
-//     ['FullAccess']
-//   );
-// };
-// var setToken = function () {
-//   createToken().then{}
-//   Tokens.SetAccessToken('');
-// };
-
-// var getProducts = function () {
-//   return Me.ListProducts;
-// };
-
-// var createProjectFolder = function () {
-//   console.log('');
-//   setToken();
-//   getProducts().then((impersonatedProductList) =>
-//     console.log(impersonatedProductList)
-//   );
-// };
 (() => {
   Configuration.Set({
     baseApiUrl: 'https://sandboxapi.ordercloud.io',
@@ -82,7 +58,7 @@ export const products = [
   },
 ];
 
-export const orderCloudProducts = async () => {};
+export const orderCloudProducts = async () => { };
 
 /*
 Copyright Google LLC. All Rights Reserved.

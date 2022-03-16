@@ -5,15 +5,54 @@ import {
 } from 'ordercloud-javascript-sdk';
 import { Me, Orders, LineItems } from 'ordercloud-javascript-sdk';
 
-Configuration.Set({
-  baseApiUrl: 'https://sandboxapi.ordercloud.io',
-  timeoutInMilliseconds: 20 * 1000,
-});
+// var createToken = function () {
+//   console.log('createToken');
+//   return Auth.ClientCredentials(
+//     'BcO7AqmD7dr40r1imJgEge7PsecEmxJzzlBQ7g5Htp0Z57v2JVOOsmuBtbez',
+//     '6F6FA276-2D20-4874-9A18-69D601339817',
+//     ['FullAccess']
+//   );
+// };
+// var setToken = function () {
+//   createToken().then{}
+//   Tokens.SetAccessToken('');
+// };
 
-var createToken = function (){
-  console.log('createToken');
-  return Auth.ClientCredentials('6F6FA276-2D20-4874-9A18-69D601339817')
-}
+// var getProducts = function () {
+//   return Me.ListProducts;
+// };
+
+// var createProjectFolder = function () {
+//   console.log('');
+//   setToken();
+//   getProducts().then((impersonatedProductList) =>
+//     console.log(impersonatedProductList)
+//   );
+// };
+(() => {
+  Configuration.Set({
+    baseApiUrl: 'https://sandboxapi.ordercloud.io',
+    timeoutInMilliseconds: 20 * 1000,
+  });
+  Auth.ClientCredentials(
+    'BcO7AqmD7dr40r1imJgEge7PsecEmxJzzlBQ7g5Htp0Z57v2JVOOsmuBtbez',
+    '6F6FA276-2D20-4874-9A18-69D601339817',
+    ['FullAccess']
+  )
+    .then((authResponse) => {
+      Tokens.SetAccessToken(authResponse.access_token);
+
+      console.log('token', authResponse.access_token);
+      Me.ListProducts().then((impersonatedProductList) =>
+        console.log(impersonatedProductList)
+      );
+      Me.ListProducts().then((productList) => console.log(productList));
+    })
+
+    .catch((err) => {
+      console.log(err);
+    });
+})();
 
 export interface Product {
   id: number;

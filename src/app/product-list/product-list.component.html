@@ -3,17 +3,17 @@
 <div *ngFor="let product of products">
 
   <h3>
-    <a [title]="product.name + ' details'">
-      {{ product.name }}
+    <a [title]="product.Name + ' details'">
+      {{ product.Name }}
     </a>
   </h3>
 
-  <p *ngIf="product.description">
-    Description: {{ product.description }}
+  <p *ngIf="product.Description">
+    Description: {{ product.Description }}
   </p>
 
-  <p *ngIf="product.price">
-    Price: {{ product.price }}
+  <p *ngIf="product.PriceSchedule">
+    Price: {{ product.PriceSchedule }}
   </p>
 
 </div>

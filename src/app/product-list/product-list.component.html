@@ -1,21 +1,11 @@
 <h2>Products</h2>
 
 <div *ngFor="let product of products">
-
   <h3>
     <a [title]="product.Name + ' details'">
-      {{ product.Name }}
+      {{ product.ID }}
     </a>
   </h3>
-
-  <p *ngIf="product.Description">
-    Description: {{ product.Description }}
-  </p>
-
-  <p *ngIf="product.PriceSchedule">
-    Price: {{ product.PriceSchedule }}
-  </p>
-
 </div>
 
 <!-- 

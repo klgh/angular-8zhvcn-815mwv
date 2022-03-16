@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { BuyerProduct, Product } from 'ordercloud-javascript-sdk';
+import { BuyerProduct } from 'ordercloud-javascript-sdk';
+
+import { Auth, Products, Tokens } from 'ordercloud-javascript-sdk';
+import {
+  Configuration,
+  ImpersonateTokenRequest,
+} from 'ordercloud-javascript-sdk';
+import { Me, Orders, LineItems } from 'ordercloud-javascript-sdk';
+
 import { orderCloudProducts } from '../products';
 
 @Component({
@@ -8,17 +16,35 @@ import { orderCloudProducts } from '../products';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  public products: BuyerProduct[] = [];
+  public products: any;
+
+  constructor() {
+    // orderCloudProducts().then((data) => {
+    //   alert('did the load');
+    //   alert(data.Items);
+    //   this.products = data.Items;
+    // });
+  }
 
   ngOnInit() {
-    orderCloudProducts()
-      .then((data) => {
-        alert('did the load');
-        alert(data.Items);
-        this.products = data.Items;
+    Configuration.Set({
+      baseApiUrl: 'https://sandboxapi.ordercloud.io',
+      timeoutInMilliseconds: 20 * 1000,
+    });
+    Auth.ClientCredentials(
+      'LuuTwjTgfyeZKsQOCg79xndpnAOZCs3MDJwxcwPFkBe7x0cICRaouaCWerZG',
+      '8135B016-CB8B-43C4-ABF4-A357150B1164',
+      ['FullAccess', 'Shopper']
+    )
+      .then((authResponse) => {
+        Tokens.SetAccessToken(authResponse.access_token);
+        Me.ListProducts().then(
+          (productList) => (this.products = productList.Items)
+        );
       })
-      .catch((e) => {
-        alert(e);
+
+      .catch((err) => {
+        console.log(err);
       });
   }
 

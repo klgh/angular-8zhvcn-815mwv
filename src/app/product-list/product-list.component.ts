@@ -1,14 +1,26 @@
-import { Component } from '@angular/core';
-
-import { products } from '../products';
+import { Component, OnInit } from '@angular/core';
+import { BuyerProduct, Product } from 'ordercloud-javascript-sdk';
+import { orderCloudProducts } from '../products';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent {
-  products = products;
+export class ProductListComponent implements OnInit {
+  public products: BuyerProduct[] = [];
+
+  ngOnInit() {
+    orderCloudProducts()
+      .then((data) => {
+        alert('did the load');
+        alert(data.Items);
+        this.products = data.Items;
+      })
+      .catch((e) => {
+        alert(e);
+      });
+  }
 
   share() {
     window.alert('The product has been shared!');

@@ -1,9 +1,4 @@
-import { Auth, Products, Tokens } from 'ordercloud-javascript-sdk';
-import {
-  Configuration,
-  ImpersonateTokenRequest,
-} from 'ordercloud-javascript-sdk';
-import { Me, Orders, LineItems } from 'ordercloud-javascript-sdk';
+import { Auth, Configuration, Me, Tokens } from 'ordercloud-javascript-sdk';
 
 (() => {
   Configuration.Set({
@@ -13,15 +8,13 @@ import { Me, Orders, LineItems } from 'ordercloud-javascript-sdk';
   Auth.ClientCredentials(
     'BcO7AqmD7dr40r1imJgEge7PsecEmxJzzlBQ7g5Htp0Z57v2JVOOsmuBtbez',
     '6F6FA276-2D20-4874-9A18-69D601339817',
-    ['FullAccess']
+    ['FullAccess', 'Shopper']
   )
     .then((authResponse) => {
       Tokens.SetAccessToken(authResponse.access_token);
 
       console.log('token', authResponse.access_token);
-      Me.ListProducts().then((impersonatedProductList) =>
-        console.log(impersonatedProductList)
-      );
+
       Me.ListProducts().then((productList) => console.log(productList));
     })
 
@@ -29,6 +22,14 @@ import { Me, Orders, LineItems } from 'ordercloud-javascript-sdk';
       console.log(err);
     });
 })();
+
+// const createToken = () => {
+//   return Auth.ClientCredentials(
+//     'BcO7AqmD7dr40r1imJgEge7PsecEmxJzzlBQ7g5Htp0Z57v2JVOOsmuBtbez',
+//     '6F6FA276-2D20-4874-9A18-69D601339817',
+//     ['FullAccess', 'Shopper']
+//   );
+// };
 
 export interface Product {
   id: number;
@@ -58,10 +59,12 @@ export const products = [
   },
 ];
 
-export const orderCloudProducts = async () => { };
+export const orderCloudProducts = async () => {
+  return Me.ListProducts();
+};
+
 
 /*
-Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at https://angular.io/license
 */
